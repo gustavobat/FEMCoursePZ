@@ -6,7 +6,6 @@
 #include "Analysis.h"
 #include "tpanic.h"
 
-
 using namespace std;
 
 Analysis::Analysis() {

@@ -13,6 +13,9 @@
 #include <stdio.h>
 #include "DataTypes.h"
 
+const REAL EPS = 1.0e-14;
+const int printPrecision = 10;
+
 class IntRule
 {
   

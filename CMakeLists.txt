@@ -26,13 +26,12 @@ if(USING_PZ)
 		find_package( PZ REQUIRED )
 	ENDIF (WIN32)
 
-
 	include_directories(${PZ_INCLUDE_DIRS})
 
 endif(USING_PZ)
 
 if(USING_ARMADILLO)
-find_package( Armadillo REQUIRED NO_MODULE)
+find_package(Armadillo REQUIRED NO_MODULE)
 include_directories(${ARMADILLO_INCLUDE_DIRS})
 endif(USING_ARMADILLO)
 
@@ -45,7 +44,6 @@ endif(USING_EIGEN3)
 add_subdirectory(headers)
 add_subdirectory(src)
 add_subdirectory(tinyxml)
-
 
 #Specify where the headers files must be found
 include_directories(
@@ -85,5 +83,5 @@ option(USING_EIGEN3 "Biblioteca Eigen3 deve ser usada neste projeto" OFF)
 option(USING_FAD "Whether the FAD package will be linked with the library" OFF)
 
 if(USING_FAD)
-	add_subdirectory("Fad")
+	add_subdirectory("fad")
 endif(USING_FAD)

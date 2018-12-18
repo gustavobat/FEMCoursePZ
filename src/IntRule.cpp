@@ -6,11 +6,9 @@
 
 #include "IntRule.h"
 #include "tpanic.h"
+#include <iomanip>
 
-using namespace std;
-
-IntRule::IntRule() : fPoints(), fWeights(0){
-    DebugStop();
+IntRule::IntRule() : fPoints(1, 1), fWeights(0), fOrder(-1) {
 }
 
 IntRule::IntRule(int order) {
@@ -34,7 +32,18 @@ int IntRule::NPoints() const {
 }
 
 void IntRule::Print(std::ostream &out) {
-    DebugStop();
+
+    out << ":: Integration Rule Info" << std::endl;
+    out << " Order: " << fOrder << std::endl;
+
+    for (auto i = 0; i < fPoints.Rows();  i++) {
+
+        out << std::fixed << std::setprecision(printPrecision)
+            << " Point: " << std::left << std::setw(5) << i
+            << " x: " << std::left << std::setw(15) << fPoints(i, 0)
+            << " w: " << std::left << std::setw(15) << fWeights[i]
+            <<  std::endl;
+    }
 }
 
 void IntRule::Point(int p, VecDouble& co, double& w) const {
