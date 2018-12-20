@@ -13,8 +13,7 @@
 #include <stdio.h>
 #include "IntRule.h"
 
-class IntRule1d : public IntRule
-{
+class IntRule1d : public IntRule {
     
 public:
   

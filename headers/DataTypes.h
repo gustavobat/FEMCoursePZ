@@ -19,8 +19,7 @@ typedef std::vector<int> VecInt;
 typedef std::vector<double> VecDouble;
 typedef double REAL;
 
-enum ElementType
-{
+enum ElementType {
 
     /*0*/    EPoint,
     /*1*/    EOned,
@@ -30,9 +29,6 @@ enum ElementType
     /*5*/    EPiramide,
     /*6*/    EPrisma,
     /*7*/    ECube
-
-         
 };
-
 
 #endif /* defined(__FEMCoursePZ__DATATYPES__) */

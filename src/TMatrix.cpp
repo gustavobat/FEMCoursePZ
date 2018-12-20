@@ -23,140 +23,140 @@ using std::cin;
 
 TMatrix::TMatrix()
 {
-  
-  fmatrix= NULL;
-  frow =0;
-  fcol=0;
-  fdecompose=0;
-  
+
+    fmatrix= NULL;
+    frow =0;
+    fcol=0;
+    fdecompose=0;
+
 }
 
 TMatrix::TMatrix(int row, int col, double val)
 {
-  if (row < 0 || col < 0) {
-    DebugStop();
-  }
-  frow = row;
-  fcol = col;
-  fdecompose=0;
-  fmatrix = new double [frow*fcol];
-  for (int i=0; i<frow*fcol; i++) {
-    fmatrix[i] = val;
-  }
+    if (row < 0 || col < 0) {
+        DebugStop();
+    }
+    frow = row;
+    fcol = col;
+    fdecompose=0;
+    fmatrix = new double [frow*fcol];
+    for (int i=0; i<frow*fcol; i++) {
+        fmatrix[i] = val;
+    }
 }
 
 TMatrix::~TMatrix(void)
 {
-  if(fmatrix != NULL){
-    for (int i=0; i<frow*fcol; i++) {
-      fmatrix[i] = 0.;
+    if(fmatrix != NULL){
+        for (int i=0; i<frow*fcol; i++) {
+            fmatrix[i] = 0.;
+        }
+        delete [] this->fmatrix;
     }
-    delete [] this->fmatrix;
-  }
 }
 
 TMatrix::TMatrix(const TMatrix &cp)
 {
-  
-  frow= cp.frow;
-  fcol= cp.fcol;
-  fdecompose=cp.fdecompose;
-  
-  fmatrix = new double [frow*fcol];
-  
-  for (int i=0; i<frow*fcol; i++) {
-    fmatrix[i] = cp.fmatrix[i];
-  }
+
+    frow= cp.frow;
+    fcol= cp.fcol;
+    fdecompose=cp.fdecompose;
+
+    fmatrix = new double [frow*fcol];
+
+    for (int i=0; i<frow*fcol; i++) {
+        fmatrix[i] = cp.fmatrix[i];
+    }
 }
 
 double TMatrix::GetVal (const int i,const int j) const
 {
-  if (i<0 || i>=frow || j<0 || j>=fcol) {
-    DebugStop();
-  }
-  return fmatrix[frow*j + i];
+    if (i<0 || i>=frow || j<0 || j>=fcol) {
+        DebugStop();
+    }
+    return fmatrix[frow*j + i];
 }
 
 int TMatrix::Rows(void) const
 {
-  return frow;
+    return frow;
 }
 int TMatrix::Cols(void) const
 {
-  return fcol;
+    return fcol;
 }
 
 void TMatrix::PutVal (int i, int j, double val)
 {
-  if (i<0 || i>=frow || j<0 || j>=fcol) {
-    DebugStop();
-  }
-  fmatrix[frow*j + i] = val;
+    if (i<0 || i>=frow || j<0 || j>=fcol) {
+        DebugStop();
+    }
+    fmatrix[frow*j + i] = val;
 }
 
 void TMatrix::Resize(int row, int col)
 {
-  if ( row <= 0 || col <= 0 ||fdecompose==1) {
-    DebugStop();
-  }
-  
-  if (fmatrix == NULL) {
-    fmatrix = new double[row*col];
-    for (int i=0; i<row*col; i++) {
-      fmatrix[i] = 0.;
+    if ( row <= 0 || col <= 0 ||fdecompose==1) {
+        DebugStop();
     }
-    frow = row;
-    fcol = col;
-  }
-  else{
-    TMatrix copy(*this);
-    
-    
-    delete [] fmatrix;
-    
-    fmatrix = new double[row*col];
-    frow=row;
-    fcol=col;
-    
-    for (int i=0; i<row; i++) {
-      for (int j=0; j<col; j++){
-        if (i>=copy.Rows())
-        {
-          PutVal(i, j, 0);
+
+    if (fmatrix == NULL) {
+        fmatrix = new double[row*col];
+        for (int i=0; i<row*col; i++) {
+            fmatrix[i] = 0.;
         }
-        else if (j>=copy.Cols())
-        {
-          PutVal(i, j, 0);
-        }
-        else
-        {
-          PutVal(i, j, copy(i,j));
-        }
-      }
+        frow = row;
+        fcol = col;
     }
-  }
+    else{
+        TMatrix copy(*this);
+
+
+        delete [] fmatrix;
+
+        fmatrix = new double[row*col];
+        frow=row;
+        fcol=col;
+
+        for (int i=0; i<row; i++) {
+            for (int j=0; j<col; j++){
+                if (i>=copy.Rows())
+                {
+                    PutVal(i, j, 0);
+                }
+                else if (j>=copy.Cols())
+                {
+                    PutVal(i, j, 0);
+                }
+                else
+                {
+                    PutVal(i, j, copy(i,j));
+                }
+            }
+        }
+    }
 }
 
 
 void TMatrix::Transpose()
 {
-  TMatrix tr(fcol,frow);
-  
-  if (fmatrix==NULL||fdecompose==1) {
-    DebugStop();
-  }
-  
-  for (int i=0; i<frow; i++) {
-    for (int j=0; j<fcol; j++) {
-      tr.PutVal(j, i, GetVal(i, j));
+    TMatrix tr(fcol,frow);
+
+    if (fmatrix==NULL||fdecompose==1) {
+        DebugStop();
     }
-  }
-  fcol=tr.fcol;
-  frow=tr.frow;
-  
-  for (int i=0; i<frow*fcol; i++) {
-    this->fmatrix[i]=tr.fmatrix[i];
-  }
+
+    for (int i=0; i<frow; i++) {
+        for (int j=0; j<fcol; j++) {
+            tr.PutVal(j, i, GetVal(i, j));
+        }
+    }
+    fcol=tr.fcol;
+    frow=tr.frow;
+
+    for (int i=0; i<frow*fcol; i++) {
+        this->fmatrix[i]=tr.fmatrix[i];
+    }
 }
 
 TMatrix TMatrix::Transpose( TMatrix & matrix) const
@@ -166,7 +166,7 @@ TMatrix TMatrix::Transpose( TMatrix & matrix) const
     for(i=0;i<frow;i++)
         for(j=0;j<fcol;j++)
             matrix.PutVal(j, i, GetVal(i, j));
-            //matrix(j,i)=operator()(i,j);
+    //matrix(j,i)=operator()(i,j);
     return matrix;
 }
 
@@ -194,8 +194,8 @@ void TMatrix::Multiply(const TMatrix &A, TMatrix &B, int opt) const {
 
 
 void TMatrix::MultAdd(const TMatrix &x,const TMatrix &y, TMatrix &z,
-                               const double alpha,const double beta,const int opt) const {
-    
+                      const double alpha,const double beta,const int opt) const {
+
     if ((!opt && this->Cols() != x.Rows()) || (opt && this->Rows() != x.Rows())) {
         std::cout<< "TPZFMatrix::MultAdd matrix x with incompatible dimensions>" <<std::endl;
         return;
@@ -232,7 +232,7 @@ void TMatrix::MultAdd(const TMatrix &x,const TMatrix &y, TMatrix &z,
                     memcpy(zp,yp,numeq*sizeof(double));
                 }
                 for(int64_t i=0; i< numeq; i++) z(i,ic) *= beta;
-                
+
             } else {
                 while(zp != zlast) {
                     *zp = 0.;
@@ -241,9 +241,9 @@ void TMatrix::MultAdd(const TMatrix &x,const TMatrix &y, TMatrix &z,
             }
         }
     }
-    
+
     if(!(rows*cols)) return;
-    
+
     for (ic = 0; ic < xcols; ic++) {
         if(!opt) {
             for ( c = 0; c<cols; c++) {
@@ -272,7 +272,7 @@ void TMatrix::MultAdd(const TMatrix &x,const TMatrix &y, TMatrix &z,
             }
         }
     }
-    
+
 }
 
 
@@ -282,165 +282,165 @@ void TMatrix::MultAdd(const TMatrix &x,const TMatrix &y, TMatrix &z,
 ///Zera os valores da matriz
 void TMatrix::Zero()
 {
-  int sz = frow*fcol;
-  for (int i=0; i<sz; i++) {
-    fmatrix[i] = 0.;
-  }
-  fdecompose=0;
-  
+    int sz = frow*fcol;
+    for (int i=0; i<sz; i++) {
+        fmatrix[i] = 0.;
+    }
+    fdecompose=0;
+
 }
 
 
 double &TMatrix::operator ()(int i, int j)
 {
-  if ( i< 0 || i >= frow ) {
-    DebugStop();
-  }
-  if( j<0 || j >= fcol ) {
-    DebugStop();
-  }
-  return fmatrix[frow*j + i];
+    if ( i< 0 || i >= frow ) {
+        DebugStop();
+    }
+    if( j<0 || j >= fcol ) {
+        DebugStop();
+    }
+    return fmatrix[frow*j + i];
 }
 
 
 TMatrix &TMatrix::operator=(const TMatrix &copia)
 {
-  
-  if(&copia!=this){
-    if(frow!=copia.frow||fcol!=copia.fcol){
-      delete []fmatrix;
-      frow=copia.frow;
-      fcol=copia.fcol;
-      fdecompose=copia.fdecompose;
-      fmatrix=new double[frow*fcol];
-      
+
+    if(&copia!=this){
+        if(frow!=copia.frow||fcol!=copia.fcol){
+            delete []fmatrix;
+            frow=copia.frow;
+            fcol=copia.fcol;
+            fdecompose=copia.fdecompose;
+            fmatrix=new double[frow*fcol];
+
+        }
+
+        for (int i=0; i<frow*fcol; i++) {
+            fmatrix[i]=copia.fmatrix[i];
+        }
+
     }
-    
-    for (int i=0; i<frow*fcol; i++) {
-      fmatrix[i]=copia.fmatrix[i];
-    }
-    
-  }
-  
-  return *this;
-  
+
+    return *this;
+
 }
 
 TMatrix TMatrix::operator +(TMatrix &fator)
 {
-  
-  
-  if(frow!=fator.Rows() || fcol!=fator.Cols()||fator.fdecompose==1||fdecompose==1)
-  {
-    cout << "Nao eh possivel realizar a soma: matrizes de tamanho diferentes." << endl;
-    
-  }
-  
-  TMatrix soma(frow,fcol);
-  
-  for (int i=0; i<frow; i++) {
-    for(int j=0;j<fcol;j++){
-      soma.PutVal(i, j, (GetVal(i, j)+fator.GetVal(i, j)));
-      ///soma.fmatrix[i]=this->fmatrix+fator.fmatrix[i];
+
+
+    if(frow!=fator.Rows() || fcol!=fator.Cols()||fator.fdecompose==1||fdecompose==1)
+    {
+        cout << "Nao eh possivel realizar a soma: matrizes de tamanho diferentes." << endl;
+
     }
-  }
-  return soma;
+
+    TMatrix soma(frow,fcol);
+
+    for (int i=0; i<frow; i++) {
+        for(int j=0;j<fcol;j++){
+            soma.PutVal(i, j, (GetVal(i, j)+fator.GetVal(i, j)));
+            ///soma.fmatrix[i]=this->fmatrix+fator.fmatrix[i];
+        }
+    }
+    return soma;
 }
 
 TMatrix TMatrix::operator -(TMatrix &fator)
 {
-  if(frow!=fator.Rows() || fcol!=fator.Cols()||fator.fdecompose==1||fdecompose==1)
-  {
-    cout << "Nao eh possivel realizar a soma: matrizes de tamanho diferentes." << endl;
-    
-  }
-  
-  TMatrix dif(frow,fcol);
-  
-  for (int i=0; i<frow; i++) {
-    for(int j=0;j<fcol;j++){
-      dif.PutVal(i, j, (GetVal(i, j)-fator.GetVal(i, j)));
+    if(frow!=fator.Rows() || fcol!=fator.Cols()||fator.fdecompose==1||fdecompose==1)
+    {
+        cout << "Nao eh possivel realizar a soma: matrizes de tamanho diferentes." << endl;
+
     }
-  }
-  return dif;
+
+    TMatrix dif(frow,fcol);
+
+    for (int i=0; i<frow; i++) {
+        for(int j=0;j<fcol;j++){
+            dif.PutVal(i, j, (GetVal(i, j)-fator.GetVal(i, j)));
+        }
+    }
+    return dif;
 }
 
 TMatrix &TMatrix::operator *(double m)
 {
-  if (fdecompose==1) {
-    DebugStop();
-    
-  }
-  
-  for (int i=0; i<frow*fcol; i++) {
-    fmatrix[i]=m*fmatrix[i];
-  }
-  
-  return *this;
+    if (fdecompose==1) {
+        DebugStop();
+
+    }
+
+    for (int i=0; i<frow*fcol; i++) {
+        fmatrix[i]=m*fmatrix[i];
+    }
+
+    return *this;
 }
 
 ///PRODUTO DE MATRIZES
 TMatrix TMatrix::operator *(TMatrix &fator)
 {
-  if (fdecompose==1) {
-    DebugStop();
-		}
-  
-  if (fcol!=fator.Rows()) {
-    DebugStop();
-    //cout << "O numero de colunas da matriz A eh diferente do numero de linhas da matriz matriz vazia. Nao eh possivel realizar a multiplicacao" <<endl;
-    
-  }
-  
-  TMatrix mult(frow,fator.Cols());
-  for (int i=0; i<mult.Rows(); i++) {
-    for (int j=0; j<mult.Cols(); j++) {
-      for (int k=0; k<Cols(); k++) {
-        mult(i, j) += GetVal(i, k)*fator(k, j);
-      }
+    if (fdecompose==1) {
+        DebugStop();
     }
-  }
-  
-  return mult;
+
+    if (fcol!=fator.Rows()) {
+        DebugStop();
+        //cout << "O numero de colunas da matriz A eh diferente do numero de linhas da matriz matriz vazia. Nao eh possivel realizar a multiplicacao" <<endl;
+
+    }
+
+    TMatrix mult(frow,fator.Cols());
+    for (int i=0; i<mult.Rows(); i++) {
+        for (int j=0; j<mult.Cols(); j++) {
+            for (int k=0; k<Cols(); k++) {
+                mult(i, j) += GetVal(i, k)*fator(k, j);
+            }
+        }
+    }
+
+    return mult;
 }
 
 
 ///PRODUTO MATRIZ VETOR
 VecDouble TMatrix::operator *(VecDouble &vec)
 {
-  if (fcol!=vec.size()){
-    DebugStop();//cout << "Numero de colunas da matriz diferente do tamanho do vetor." <<endl;
-    
-  }
-  
-  VecDouble mult(frow);
-  
-  for (int j=0; j<frow; j++) {
-    for (int i=0; i<fcol; i++) {
-      mult[j] += GetVal(j,i)*vec[i];
+    if (fcol!=vec.size()){
+        DebugStop();//cout << "Numero de colunas da matriz diferente do tamanho do vetor." <<endl;
+
     }
-  }
-  
-  return mult;
+
+    VecDouble mult(frow);
+
+    for (int j=0; j<frow; j++) {
+        for (int i=0; i<fcol; i++) {
+            mult[j] += GetVal(j,i)*vec[i];
+        }
+    }
+
+    return mult;
 }
 
 ///OPERADOR ==
 bool TMatrix::operator == (TMatrix &mat2)
 {
-  if (mat2.fmatrix == NULL) {
-    DebugStop();
-  }
-  if(mat2.Rows() != Rows() || mat2.Cols() != Cols())
-    return false;
-  
-  for (int i=0; i<frow; i++){
-    for (int j=0; j<fcol; j++) {
-      if(mat2.GetVal(i, j) != GetVal(i, j))
-        return false;
+    if (mat2.fmatrix == NULL) {
+        DebugStop();
     }
-  }
-  
-  return true;
+    if(mat2.Rows() != Rows() || mat2.Cols() != Cols())
+        return false;
+
+    for (int i=0; i<frow; i++){
+        for (int j=0; j<fcol; j++) {
+            if(mat2.GetVal(i, j) != GetVal(i, j))
+                return false;
+        }
+    }
+
+    return true;
 }
 
 //static bool IsZero( double val)
@@ -452,142 +452,142 @@ bool TMatrix::operator == (TMatrix &mat2)
 
 void TMatrix::LU_Decomposition()
 {
-  
-	if (fdecompose == 1){
-		cout << "Decomposicao ja foi realizada" << endl;
-		DebugStop();
 
-	}
+    if (fdecompose == 1){
+        cout << "Decomposicao ja foi realizada" << endl;
+        DebugStop();
 
-	int s;
-	double aux = 0.;
+    }
 
-	if (Rows() != Cols()) {
-		DebugStop();
-	}
+    int s;
+    double aux = 0.;
 
-
-	if (Rows()<Cols()) {
-		s = Rows();
-	}
-	else{
-		s = Cols();
-	}
-
-	for (int k = 0; k<s; k++)
-	{
-		if (GetVal(k, k) == 0) {
-			DebugStop();
-
-		}
-		else{
-
-			for (int irow = k + 1; irow<Rows(); irow++) {
-				aux = GetVal(irow, k) / GetVal(k, k);
-				PutVal(irow, k, aux);
-
-				for (int icol = k + 1; icol<Cols(); icol++) {
-					PutVal(irow, icol, GetVal(irow, icol) - GetVal(k, icol)*aux);
-				}
-
-			}
+    if (Rows() != Cols()) {
+        DebugStop();
+    }
 
 
-		}
+    if (Rows()<Cols()) {
+        s = Rows();
+    }
+    else{
+        s = Cols();
+    }
 
-	}
+    for (int k = 0; k<s; k++)
+    {
+        if (GetVal(k, k) == 0) {
+            DebugStop();
 
-	fdecompose = 1;
-  
+        }
+        else{
+
+            for (int irow = k + 1; irow<Rows(); irow++) {
+                aux = GetVal(irow, k) / GetVal(k, k);
+                PutVal(irow, k, aux);
+
+                for (int icol = k + 1; icol<Cols(); icol++) {
+                    PutVal(irow, icol, GetVal(irow, icol) - GetVal(k, icol)*aux);
+                }
+
+            }
+
+
+        }
+
+    }
+
+    fdecompose = 1;
+
 }
 
 
 //Resolve o sistema
 void TMatrix::Solve_LU(TMatrix &rhs)
 {
-  
-	if (fmatrix == NULL) {
-		DebugStop();
-	}
 
-	LU_Decomposition();
+    if (fmatrix == NULL) {
+        DebugStop();
+    }
 
-	if (rhs.Rows() != Cols()) {
-		DebugStop();
-	}
+    LU_Decomposition();
 
-	//Resolucao do sistema
+    if (rhs.Rows() != Cols()) {
+        DebugStop();
+    }
 
-	for (int irow = 0; irow<Rows(); irow++) {
+    //Resolucao do sistema
 
-		for (int icol = 0; icol<rhs.Cols(); icol++) {
+    for (int irow = 0; irow<Rows(); irow++) {
 
-			double aux2 = 0.;
+        for (int icol = 0; icol<rhs.Cols(); icol++) {
 
-			for (int k = 0; k<irow; k++) {
-				aux2 += rhs.GetVal(k, icol)*GetVal(irow, k);
-			}
+            double aux2 = 0.;
 
-			rhs.PutVal(irow, icol, rhs.GetVal(irow, icol) - aux2);
+            for (int k = 0; k<irow; k++) {
+                aux2 += rhs.GetVal(k, icol)*GetVal(irow, k);
+            }
 
-
-		}
+            rhs.PutVal(irow, icol, rhs.GetVal(irow, icol) - aux2);
 
 
-	}
+        }
 
 
-	for (int irow = (Rows() - 1); irow >= 0; irow--) {
-
-		for (int icol = 0; icol<rhs.Cols(); icol++) {
-
-			double aux1 = 0.;
-
-			for (int k = (irow + 1); k<Cols(); k++) {
-
-				aux1 += rhs.GetVal(k, icol)*GetVal(irow, k);
-			}
+    }
 
 
-			rhs.PutVal(irow, icol, (rhs.GetVal(irow, icol) - aux1) / GetVal(irow, irow));
+    for (int irow = (Rows() - 1); irow >= 0; irow--) {
+
+        for (int icol = 0; icol<rhs.Cols(); icol++) {
+
+            double aux1 = 0.;
+
+            for (int k = (irow + 1); k<Cols(); k++) {
+
+                aux1 += rhs.GetVal(k, icol)*GetVal(irow, k);
+            }
 
 
-		}
-	}
+            rhs.PutVal(irow, icol, (rhs.GetVal(irow, icol) - aux1) / GetVal(irow, irow));
 
 
-  
+        }
+    }
+
+
+
 }
 
 VecDouble TMatrix::GetRow(int row) const {
-	
-	if (row<0 || row >= Rows()){
-		DebugStop();
-	}
 
-	VecDouble VparcC(Cols());
-	for (int icol = 0; icol<Cols(); icol++){
+    if (row<0 || row >= Rows()){
+        DebugStop();
+    }
 
-		VparcC[icol] = GetVal(row, icol);
-	}
+    VecDouble VparcC(Cols());
+    for (int icol = 0; icol<Cols(); icol++){
+
+        VparcC[icol] = GetVal(row, icol);
+    }
 
 
-	return VparcC;
+    return VparcC;
 
 }
 
 VecDouble TMatrix::GetCol(int col) const {
-	
-	if (col<0 || col >= Cols()){
-		DebugStop();
-	}
 
-	VecDouble VparcR(Rows());
-	for (int irow = 0; irow<Rows(); irow++){
+    if (col<0 || col >= Cols()){
+        DebugStop();
+    }
 
-		VparcR[irow] = GetVal(irow, col);
-	}
+    VecDouble VparcR(Rows());
+    for (int irow = 0; irow<Rows(); irow++){
+
+        VparcR[irow] = GetVal(irow, col);
+    }
 
 
-	return VparcR;
+    return VparcR;
 }

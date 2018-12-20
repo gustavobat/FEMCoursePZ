@@ -12,11 +12,10 @@
 #include <iostream>
 #include <exception>
 
-static void DebugStop()
-{
+static void DebugStop() {
     std::cout << "Your chance to put a breakpoint here\n";
     std::bad_exception myex;
     throw myex;
-
 }
+
 #endif

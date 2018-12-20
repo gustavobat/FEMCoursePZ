@@ -20,7 +20,9 @@ IntRule::~IntRule() {
 }
 
 IntRule::IntRule(const IntRule& copy) {
-    DebugStop();
+    fOrder = copy.fOrder;
+    fWeights = copy.fWeights;
+    fPoints = copy.fPoints;
 }
 
 IntRule &IntRule::operator=(const IntRule &cp) {
@@ -38,11 +40,11 @@ void IntRule::Print(std::ostream &out) {
 
     for (auto i = 0; i < fPoints.Rows();  i++) {
 
-        out << std::fixed << std::setprecision(printPrecision)
-            << " Point: " << std::left << std::setw(5) << i
-            << " x: " << std::left << std::setw(15) << fPoints(i, 0)
-            << " w: " << std::left << std::setw(15) << fWeights[i]
-            <<  std::endl;
+        out << " Point: " << std::right << std::setw(2) << i
+            << std::fixed << std::setprecision(printPrecision)
+            << ",   x: " << std::right << std::setw(printPrecision + 3) << fPoints(i, 0)
+            << ",   w: " << std::right << std::setw(printPrecision + 3) << fWeights[i]
+            << std::endl;
     }
 }
 
