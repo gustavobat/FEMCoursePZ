@@ -7,22 +7,37 @@
 #include "tpanic.h"
 
 Geom1d::Geom1d() {
-    DebugStop();
+    fNodeIndices = {-1, -1, -1};
 }
 
 Geom1d::~Geom1d() {
+
 }
 
 Geom1d::Geom1d(const Geom1d &copy) {
-    DebugStop();
+
+    fNodeIndices = copy.fNodeIndices;
+
+    for (auto i = 0; i < nSides; i++) {
+        fNeighbours[i] = copy.fNeighbours[i];
+    }
 }
 
 Geom1d& Geom1d::operator=(const Geom1d& copy) {
-    DebugStop();
+
+    fNodeIndices = copy.fNodeIndices;
+
+    for (auto i = 0; i < nSides; i++) {
+        fNeighbours[i] = copy.fNeighbours[i];
+    }
+    return *this;
 }
 
 void Geom1d::Shape(const VecDouble &xi, VecDouble &phi, Matrix &dphi) {
-    DebugStop();
+    phi[0] = (1.0 - xi[0]) / 2.;
+    phi[1] = (1.0 + xi[0]) / 2.;
+    dphi(0,0) = -0.5;
+    dphi(0,1) = +0.5;
 }
 
 void Geom1d::X(const VecDouble &xi, Matrix &NodeCo, VecDouble &x) {
@@ -34,25 +49,45 @@ void Geom1d::GradX(const VecDouble &xi, Matrix &NodeCo, VecDouble &x, Matrix &gr
 }
 
 void Geom1d::SetNodes(const VecInt &nodes) {
-    DebugStop();
+
+    if (nodes.size() > 2) {
+        DebugStop();
+    }
+
+    fNodeIndices = nodes;
 }
 
 void Geom1d::GetNodes(VecInt &nodes) {
-    DebugStop();
+    nodes = fNodeIndices;
 }
 
 int Geom1d::NodeIndex(int node) {
-    DebugStop();
+
+    if (node < 0 || node > (nCorners - 1)) {
+        DebugStop();
+    }
+
+    return fNodeIndices[node];
 }
 
 int Geom1d::NumNodes() {
-    DebugStop();
+    return nCorners;
 }
 
 GeoElementSide Geom1d::Neighbour(int side) {
-    DebugStop();
+
+    if (side < 0 || (side > nSides - 1)) {
+        DebugStop();
+    }
+
+    return fNeighbours[side];
 }
 
 void Geom1d::SetNeighbour(int side, const GeoElementSide &neighbour) {
-    DebugStop();
+
+    if (side < 0 || (side > nSides - 1)) {
+        DebugStop();
+    }
+
+    fNeighbours[side] = neighbour;
 }

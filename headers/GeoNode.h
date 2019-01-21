@@ -9,6 +9,7 @@
 #define GeoNode_h
 
 #include "DataTypes.h"
+#include "tpanic.h"
 
 class GeoNode {
 
@@ -24,7 +25,10 @@ public:
     
     // Constructor of GeoNode
     GeoNode(VecDouble &co) : xco(co) {
-        
+
+        if (co.size() != 3) {
+            DebugStop();
+        }
     }
     
     // Destructor of GeoNode
@@ -55,6 +59,11 @@ public:
     
     // Sets all coordinates into the current node
     void SetCo(const VecDouble &co) {
+
+        if (co.size() != 3) {
+            DebugStop();
+        }
+
         xco = co;
     }
     
