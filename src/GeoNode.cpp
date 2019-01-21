@@ -6,7 +6,11 @@
 
 #include "GeoNode.h"
 #include "tpanic.h"
+#include <iomanip>
 
 void GeoNode::Print(std::ostream &out) {
-    DebugStop();
+
+    out << ":: Node Info" << std::endl
+        << " Coordinates: [ " << xco[0] << ", " << xco[1] << ", " << xco[2]
+        << "]" << std::endl;
 }
