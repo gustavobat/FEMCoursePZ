@@ -47,14 +47,12 @@ public:
     IntRule(const IntRule &copy);
 
     // Method to set polynomial order of the integration rule
-    virtual void SetOrder(int order)
-    {
-        fOrder=order;
+    virtual void SetOrder(int order) {
+        fOrder = order;
     }
 
     // Method to get polynomial order of the integration rule
-    virtual int GetOrder()
-    {
+    virtual int GetOrder() {
         return fOrder;
     }
 

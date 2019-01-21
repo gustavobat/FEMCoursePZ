@@ -16,7 +16,6 @@ IntRule::IntRule(int order) {
 }
 
 IntRule::~IntRule() {
-
 }
 
 IntRule::IntRule(const IntRule& copy) {
@@ -42,8 +41,8 @@ void IntRule::Print(std::ostream &out) {
 
         out << " Point: " << std::right << std::setw(2) << i
             << std::fixed << std::setprecision(printPrecision)
-            << ",   x: " << std::right << std::setw(printPrecision + 3) << fPoints(i, 0)
-            << ",   w: " << std::right << std::setw(printPrecision + 3) << fWeights[i]
+            << ",    x: " << std::right << std::setw(printPrecision + 3) << fPoints(i, 0)
+            << ",    w: " << std::right << std::setw(printPrecision + 3) << fWeights[i]
             << std::endl;
     }
 }
