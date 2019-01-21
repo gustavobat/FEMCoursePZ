@@ -12,8 +12,8 @@
 
 class GeoElement;
 
-class GeoElementSide
-{
+class GeoElementSide {
+
     // Associated element
     GeoElement *fElement;
     
@@ -26,8 +26,7 @@ public:
     GeoElementSide();
     
     // Constructor of GeoElementSide
-    GeoElementSide(GeoElement *element, int side) : fElement(element), fSide(side)
-    {
+    GeoElementSide(GeoElement *element, int side) : fElement(element), fSide(side) {
 
     }
     
@@ -40,6 +39,7 @@ public:
     int operator==(const GeoElementSide &other) const {
         return fElement == other.fElement && fSide == other.fSide;
     }
+
     int operator!=(const GeoElementSide &other) const {
         return ! operator==(other);
     }
@@ -51,8 +51,7 @@ public:
     }
 
     // Return the associated side
-    int Side() const
-    {
+    int Side() const {
         return fSide;
     }
 

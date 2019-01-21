@@ -11,6 +11,6 @@
 void GeoNode::Print(std::ostream &out) {
 
     out << ":: Node Info" << std::endl
-        << " Coordinates: [ " << xco[0] << ", " << xco[1] << ", " << xco[2]
+        << " Coordinates: [" << xco[0] << ", " << xco[1] << ", " << xco[2]
         << "]" << std::endl;
 }

@@ -11,8 +11,8 @@
 #include "Topology1d.h"
 #include "GeoElementSide.h"
 
-class Geom1d : public Topology1d
-{
+class Geom1d : public Topology1d {
+
 public:
     
     // Constructor
