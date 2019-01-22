@@ -8,19 +8,27 @@
 #include "tpanic.h"
 
 GeomTriangle::GeomTriangle() {
-    DebugStop();
+    fNodeIndices = {-1, -1, -1};
 }
 
 GeomTriangle::~GeomTriangle() {
 }
 
 GeomTriangle::GeomTriangle(const GeomTriangle &copy) {
-    DebugStop();
+    fNodeIndices = copy.fNodeIndices;
 
+    for (auto i = 0; i < nSides; i++) {
+        fNeighbours[i] = copy.fNeighbours[i];
+    }
 }
 
 GeomTriangle& GeomTriangle::operator=(const GeomTriangle& copy) {
-    DebugStop();
+    fNodeIndices = copy.fNodeIndices;
+
+    for (auto i = 0; i < nSides; i++) {
+        fNeighbours[i] = copy.fNeighbours[i];
+    }
+    return *this;
 }
 
 void GeomTriangle::Shape(const VecDouble& xi, VecDouble& phi, Matrix& dphi) {
@@ -46,25 +54,41 @@ void GeomTriangle::GradX(const VecDouble &xi, Matrix &NodeCo, VecDouble &x, Matr
 }
 
 void GeomTriangle::SetNodes(const VecInt &nodes) {
-    DebugStop();
+    if (nodes.size() != nCorners) {
+        DebugStop();
+    }
+
+    fNodeIndices = nodes;
 }
 
 void GeomTriangle::GetNodes(VecInt &nodes) {
-    DebugStop();
+    nodes = fNodeIndices;
 }
 
 int GeomTriangle::NodeIndex(int node) {
-    DebugStop();
+    if (node < 0 || node > (nCorners - 1)) {
+        DebugStop();
+    }
+
+    return fNodeIndices[node];
 }
 
 int GeomTriangle::NumNodes() {
-    DebugStop();
+    return nCorners;
 }
 
 GeoElementSide GeomTriangle::Neighbour(int side) {
-    DebugStop();
+    if (side < 0 || (side > nSides - 1)) {
+        DebugStop();
+    }
+
+    return fNeighbours[side];
 }
 
 void GeomTriangle::SetNeighbour(int side, const GeoElementSide &neighbour) {
-    DebugStop();
+    if (side < 0 || (side > nSides - 1)) {
+        DebugStop();
+    }
+
+    fNeighbours[side] = neighbour;
 }

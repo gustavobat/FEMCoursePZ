@@ -7,11 +7,10 @@
 #include "tpanic.h"
 
 Geom1d::Geom1d() {
-    fNodeIndices = {-1, -1, -1};
+    fNodeIndices = {-1, -1};
 }
 
 Geom1d::~Geom1d() {
-
 }
 
 Geom1d::Geom1d(const Geom1d &copy) {
@@ -72,7 +71,7 @@ void Geom1d::GradX(const VecDouble &xi, Matrix &NodeCo, VecDouble &x, Matrix &gr
 }
 
 void Geom1d::SetNodes(const VecInt &nodes) {
-    if (nodes.size() > 2) {
+    if (nodes.size() != nCorners) {
         DebugStop();
     }
 

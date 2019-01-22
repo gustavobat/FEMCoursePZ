@@ -11,8 +11,8 @@
 #include "TopologyQuad.h"
 #include "GeoElementSide.h"
 
-class GeomQuad : public TopologyQuad
-{
+class GeomQuad : public TopologyQuad {
+
 public:
     
     // Constructor

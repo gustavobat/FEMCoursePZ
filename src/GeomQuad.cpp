@@ -7,18 +7,27 @@
 #include "tpanic.h"
 
 GeomQuad::GeomQuad() {
-    DebugStop();
+    fNodeIndices = {-1, -1, -1, -1};
 }
 
 GeomQuad::~GeomQuad() {
 }
 
 GeomQuad::GeomQuad(const GeomQuad &copy) {
-    DebugStop();
+    fNodeIndices = copy.fNodeIndices;
+
+    for (auto i = 0; i < nSides; i++) {
+        fNeighbours[i] = copy.fNeighbours[i];
+    }
 }
 
 GeomQuad& GeomQuad::operator=(const GeomQuad& copy) {
-    DebugStop();
+    fNodeIndices = copy.fNodeIndices;
+
+    for (auto i = 0; i < nSides; i++) {
+        fNeighbours[i] = copy.fNeighbours[i];
+    }
+    return *this;
 }
 
 void GeomQuad::Shape(const VecDouble &xi, VecDouble &phi, Matrix &dphi) {
@@ -47,25 +56,41 @@ void GeomQuad::GradX(const VecDouble &xi, Matrix &NodeCo, VecDouble &x, Matrix &
 }
 
 void GeomQuad::SetNodes(const VecInt &nodes) {
-    DebugStop();
+    if (nodes.size() != nCorners) {
+        DebugStop();
+    }
+
+    fNodeIndices = nodes;
 }
 
 void GeomQuad::GetNodes(VecInt &nodes) {
-    DebugStop();
+    nodes = fNodeIndices;
 }
 
 int GeomQuad::NodeIndex(int node) {
-    DebugStop();
+    if (node < 0 || node > (nCorners - 1)) {
+        DebugStop();
+    }
+
+    return fNodeIndices[node];
 }
 
 int GeomQuad::NumNodes() {
-    DebugStop();
+    return nCorners;
 }
 
 GeoElementSide GeomQuad::Neighbour(int side) {
-    DebugStop();
+    if (side < 0 || (side > nSides - 1)) {
+        DebugStop();
+    }
+
+    return fNeighbours[side];
 }
 
 void GeomQuad::SetNeighbour(int side, const GeoElementSide &neighbour) {
-    DebugStop();
+    if (side < 0 || (side > nSides - 1)) {
+        DebugStop();
+    }
+
+    fNeighbours[side] = neighbour;
 }
