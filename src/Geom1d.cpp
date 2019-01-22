@@ -15,7 +15,6 @@ Geom1d::~Geom1d() {
 }
 
 Geom1d::Geom1d(const Geom1d &copy) {
-
     fNodeIndices = copy.fNodeIndices;
 
     for (auto i = 0; i < nSides; i++) {
@@ -24,7 +23,6 @@ Geom1d::Geom1d(const Geom1d &copy) {
 }
 
 Geom1d& Geom1d::operator=(const Geom1d& copy) {
-
     fNodeIndices = copy.fNodeIndices;
 
     for (auto i = 0; i < nSides; i++) {
@@ -41,15 +39,39 @@ void Geom1d::Shape(const VecDouble &xi, VecDouble &phi, Matrix &dphi) {
 }
 
 void Geom1d::X(const VecDouble &xi, Matrix &NodeCo, VecDouble &x) {
-    DebugStop();
+    VecDouble phi(nCorners, 0.);
+    Matrix dphi(nCorners, nCorners, 0.);
+
+    Shape(xi, phi, dphi);
+    int dimensions = NodeCo.Rows();
+
+    for(int i = 0; i < dimensions; i++) {
+        x[i] = 0.0;
+        for(int j = 0; j < nCorners; j++) {
+            x[i] += phi[j] * NodeCo.GetVal(i, j);
+        }
+    }
 }
 
 void Geom1d::GradX(const VecDouble &xi, Matrix &NodeCo, VecDouble &x, Matrix &gradx) {
-    DebugStop();
+    int dimensions = NodeCo.Rows();
+    int ncol = NodeCo.Cols();
+
+    gradx.Resize(dimensions, 1);
+    gradx.Zero();
+
+    VecDouble phi(2);
+    Matrix dphi(2, 2);
+    Shape(xi, phi, dphi);
+
+    for (int i = 0; i < dimensions; i++) {
+        for (int j = 0; j < ncol; j++) {
+            gradx(i, 0) += NodeCo.GetVal(i, j) * dphi(0, j);
+        }
+    }
 }
 
 void Geom1d::SetNodes(const VecInt &nodes) {
-
     if (nodes.size() > 2) {
         DebugStop();
     }
@@ -62,7 +84,6 @@ void Geom1d::GetNodes(VecInt &nodes) {
 }
 
 int Geom1d::NodeIndex(int node) {
-
     if (node < 0 || node > (nCorners - 1)) {
         DebugStop();
     }
@@ -75,7 +96,6 @@ int Geom1d::NumNodes() {
 }
 
 GeoElementSide Geom1d::Neighbour(int side) {
-
     if (side < 0 || (side > nSides - 1)) {
         DebugStop();
     }
@@ -84,7 +104,6 @@ GeoElementSide Geom1d::Neighbour(int side) {
 }
 
 void Geom1d::SetNeighbour(int side, const GeoElementSide &neighbour) {
-
     if (side < 0 || (side > nSides - 1)) {
         DebugStop();
     }

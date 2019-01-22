@@ -24,7 +24,17 @@ GeomTriangle& GeomTriangle::operator=(const GeomTriangle& copy) {
 }
 
 void GeomTriangle::Shape(const VecDouble& xi, VecDouble& phi, Matrix& dphi) {
-    DebugStop();
+    phi[0] = 1. - xi[0] - xi[1];
+    phi[1] = xi[0];
+    phi[2] = xi[1];
+
+    dphi(0, 0) = -1.;
+    dphi(0, 1) = 1.;
+    dphi(0, 2) = 0.;
+
+    dphi(1, 0) = -1.;
+    dphi(1, 1) = 0.;
+    dphi(1, 2) = 1.;
 }
 
 void GeomTriangle::X(const VecDouble &xi, Matrix &NodeCo, VecDouble &x) {

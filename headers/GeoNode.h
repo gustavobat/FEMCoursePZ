@@ -25,8 +25,7 @@ public:
     
     // Constructor of GeoNode
     GeoNode(VecDouble &co) : xco(co) {
-
-        if (co.size() != 3) {
+        if (co.size() > 3) {
             DebugStop();
         }
     }
@@ -59,8 +58,7 @@ public:
     
     // Sets all coordinates into the current node
     void SetCo(const VecDouble &co) {
-
-        if (co.size() != 3) {
+        if (co.size() > 3) {
             DebugStop();
         }
 

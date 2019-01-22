@@ -12,9 +12,18 @@ int Topology1d::NSideNodes(int side) {
 }
 
 int Topology1d::SideNodeIndex(int side, int node) {
+    if(side < 2 && node == 0) {
+        return side;
+    }
+
+    if(side == 2 && node < 2) {
+        return node;
+    }
+
     DebugStop();
+    return -1;
 }
 
 ElementType Topology1d::Type() {
-    DebugStop();
+    return EOned;
 }

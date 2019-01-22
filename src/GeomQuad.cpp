@@ -22,7 +22,20 @@ GeomQuad& GeomQuad::operator=(const GeomQuad& copy) {
 }
 
 void GeomQuad::Shape(const VecDouble &xi, VecDouble &phi, Matrix &dphi) {
-    DebugStop();
+    phi[0] = (1. - xi[0]) * (1. - xi[1]) / 4.;
+    phi[1] = (1. + xi[0]) * (1. - xi[1]) / 4.;
+    phi[2] = (1. + xi[0]) * (1. + xi[1]) / 4.;
+    phi[3] = (1. - xi[0]) * (1. + xi[1]) / 4.;
+
+    dphi(0, 0) = (+xi[1] - 1.) / 4.;
+    dphi(0, 1) = (-xi[1] + 1.) / 4.;
+    dphi(0, 2) = (+xi[1] + 1.) / 4.;
+    dphi(0, 3) = (-xi[1] - 1.) / 4.;
+
+    dphi(1, 0) = (+xi[0] - 1.) / 4.;
+    dphi(1, 1) = (-xi[0] - 1.) / 4.;
+    dphi(1, 2) = (+xi[0] + 1.) / 4.;
+    dphi(1, 3) = (-xi[0] + 1.) / 4.;
 }
 
 void GeomQuad::X(const VecDouble &xi, Matrix &NodeCo, VecDouble &x) {
