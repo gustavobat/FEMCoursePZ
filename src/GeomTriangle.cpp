@@ -46,11 +46,36 @@ void GeomTriangle::Shape(const VecDouble& xi, VecDouble& phi, Matrix& dphi) {
 }
 
 void GeomTriangle::X(const VecDouble &xi, Matrix &NodeCo, VecDouble &x) {
-    DebugStop();
+    VecDouble phi(nCorners, 0.);
+    Matrix dphi(nCorners, nCorners, 0.);
+
+    Shape(xi, phi, dphi);
+    int dimensions = NodeCo.Rows();
+
+    for(int i = 0; i < dimensions; i++) {
+        x[i] = 0.0;
+        for(int j = 0; j < nCorners; j++) {
+            x[i] += phi[j] * NodeCo.GetVal(i, j);
+        }
+    }
 }
 
 void GeomTriangle::GradX(const VecDouble &xi, Matrix &NodeCo, VecDouble &x, Matrix &gradx) {
-    DebugStop();
+    int dimensions = NodeCo.Rows();
+    int ncol = NodeCo.Cols();
+
+    gradx.Resize(dimensions, 1);
+    gradx.Zero();
+
+    VecDouble phi(2);
+    Matrix dphi(2, 2);
+    Shape(xi, phi, dphi);
+
+    for (int i = 0; i < dimensions; i++) {
+        for (int j = 0; j < ncol; j++) {
+            gradx(i, 0) += NodeCo.GetVal(i, j) * dphi(0, j);
+        }
+    }
 }
 
 void GeomTriangle::SetNodes(const VecInt &nodes) {
