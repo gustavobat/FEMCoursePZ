@@ -10,19 +10,16 @@
 #define PI 3.1415926535898
 
 IntRule1d::IntRule1d() {
-
     fOrder = -1;
     fPoints.Resize(1, 1);
     fWeights.resize(0);
 }
 
 IntRule1d::IntRule1d(int order) {
-
     SetOrder(order);
 }
 
 void IntRule1d::SetOrder(int order) {
-
     if (order < 0) {
         DebugStop();
     }
@@ -141,7 +138,6 @@ void IntRule1d::SetOrder(int order) {
 /* Reference: Press et al. Numerical Recipes: The Art of Scientific Computing. (3 ed.). Page: 184
  * */
 void IntRule1d::gauleg(const double x1, const double x2, Matrix &co, VecDouble &w) {
-
     auto nPoints = co.Rows();
     double m = (nPoints + 1) / 2.;
     double xm = (x1 + x2) / 2.;

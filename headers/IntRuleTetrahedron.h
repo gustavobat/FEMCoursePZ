@@ -14,10 +14,9 @@
 #include "TMatrix.h"
 #include "IntRule.h"
 
-class IntRuleTetrahedron : public IntRule
-{
+class IntRuleTetrahedron : public IntRule {
   
-    public:
+public:
     
     // Default Constructor of integration rule for tetrahedron elements
     IntRuleTetrahedron();

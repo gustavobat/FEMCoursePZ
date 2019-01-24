@@ -8,6 +8,9 @@
 #include "tpanic.h"
 
 IntRuleTriangle::IntRuleTriangle() {
+    fOrder = -1;
+    fPoints.Resize(1, 1);
+    fWeights.resize(0);
 }
 
 IntRuleTriangle::IntRuleTriangle(int order) {
@@ -15,7 +18,6 @@ IntRuleTriangle::IntRuleTriangle(int order) {
 }
 
 void IntRuleTriangle::SetOrder(int order) {
-
     if (order < 0 || order > 19) {
         DebugStop();
     }

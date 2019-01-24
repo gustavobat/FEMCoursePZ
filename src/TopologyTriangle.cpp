@@ -16,5 +16,5 @@ int TopologyTriangle::SideNodeIndex(int side, int node) {
 }
 
 ElementType TopologyTriangle::Type() {
-    DebugStop();
+    ETriangle;
 }

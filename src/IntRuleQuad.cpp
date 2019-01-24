@@ -7,12 +7,14 @@
 #include "IntRuleQuad.h"
 #include "tpanic.h"
 
-IntRuleQuad::IntRuleQuad(){
-    DebugStop();
+IntRuleQuad::IntRuleQuad() {
+    fOrder = -1;
+    fPoints.Resize(1, 1);
+    fWeights.resize(0);
 }
 
 IntRuleQuad::IntRuleQuad(int order) {
-    DebugStop();
+    SetOrder(order);
 }
 
 void IntRuleQuad::SetOrder(int order) {

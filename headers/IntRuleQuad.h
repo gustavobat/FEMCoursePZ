@@ -14,11 +14,9 @@
 #include "DataTypes.h"
 #include "IntRule.h"
 
-class IntRuleQuad : public IntRule
-{
+class IntRuleQuad : public IntRule {
     
-
-    public:
+public:
 
     // Default Constructor of integration rule for quadrilateral elements
     IntRuleQuad();
