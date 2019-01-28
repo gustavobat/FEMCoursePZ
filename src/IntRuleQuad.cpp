@@ -18,7 +18,11 @@ IntRuleQuad::IntRuleQuad(int order) {
 }
 
 void IntRuleQuad::SetOrder(int order) {
-    DebugStop();  
+    if (order < 0) {
+        DebugStop();
+    }
+
+
 }
 
 void IntRuleQuad::gaulegQuad(const double x1, const double x2, VecDouble &co, VecDouble &w) {

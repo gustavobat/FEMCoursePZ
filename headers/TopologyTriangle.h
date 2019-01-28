@@ -10,8 +10,8 @@
 
 #include "IntRuleTriangle.h"
 
-class TopologyTriangle
-{
+class TopologyTriangle {
+
 public:
 
     // Type definition of integration rule for triangle elements

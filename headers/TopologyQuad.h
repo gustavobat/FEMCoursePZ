@@ -10,8 +10,8 @@
 
 #include "IntRuleQuad.h"
 
-class TopologyQuad
-{
+class TopologyQuad {
+
 public:
     
     // Type definition of integration rule for quadrilateral elements

@@ -11,8 +11,8 @@
 #include "DataTypes.h"
 #include "IntRule1d.h"
 
-class Topology1d
-{
+class Topology1d {
+
 public:
     
     // Type definition for integration rule 1D

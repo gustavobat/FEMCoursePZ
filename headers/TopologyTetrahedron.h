@@ -10,8 +10,8 @@
 
 #include "IntRuleTetrahedron.h"
 
-class TopologyTetrahedron
-{
+class TopologyTetrahedron {
+
 public:
     
     // Type definition of integration rule for tetrahedron elements
