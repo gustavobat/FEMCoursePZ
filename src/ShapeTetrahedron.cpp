@@ -16,5 +16,12 @@ int ShapeTetrahedron::NShapeFunctions(int side, int order) {
 }
 
 int ShapeTetrahedron::NShapeFunctions(VecInt &orders) {
-    DebugStop();
+    auto n = orders.size();
+
+    int nShapeFunctions = 0;
+    for (auto i = 0; i < n; i++) {
+        nShapeFunctions += NShapeFunctions(i, orders[i]);
+    }
+
+    return nShapeFunctions;
 }

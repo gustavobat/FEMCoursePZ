@@ -8,16 +8,21 @@
 #include "tpanic.h"
 
 GeoElement::GeoElement() {
-    DebugStop();
-
+    MaterialId = -999;
+    GMesh = nullptr;
+    Index = -1;
 }
 
 GeoElement::GeoElement(int materialid, GeoMesh *mesh, int index) {
-    DebugStop();
+    MaterialId = materialid;
+    GMesh = mesh;
+    Index = index;
 }
 
 GeoElement::GeoElement(const GeoElement &copy) {
-    DebugStop();
+    MaterialId = copy.MaterialId;
+    GMesh = copy.GMesh;
+    Index = copy.Index;
 }
 
 GeoElement::~GeoElement() {
