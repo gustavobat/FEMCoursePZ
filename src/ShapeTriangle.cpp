@@ -44,7 +44,7 @@ void ShapeTriangle::Shape(const VecDouble &xi, VecInt &orders, VecDouble &phi, M
             dphi(0, is) = dphi(0, is1) * phi[is2] + phi[is1] * dphi(0, is2);
             dphi(1, is) = dphi(1, is1) * phi[is2] + phi[is1] * dphi(1, is2);
         }
-        
+
         int is1 = 0;
         int is2 = 1;
         int is3 = 2;

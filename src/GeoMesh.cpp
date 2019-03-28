@@ -36,7 +36,11 @@ int GeoMesh::NumElements() {
 }
 
 GeoNode &GeoMesh::Node(int node) {
-    DebugStop();
+    if (node < 0 || node >= this->NumNodes()) {
+        std::cout << "Invalid node index." << std::endl;
+        DebugStop();
+    }
+    return Nodes[node];
 }
 
 void GeoMesh::SetElement(int elindex, GeoElement *gel) {
@@ -44,7 +48,11 @@ void GeoMesh::SetElement(int elindex, GeoElement *gel) {
 }
 
 GeoElement *GeoMesh::Element(int elindex) {
-    DebugStop();
+    if (elindex < 0 || elindex >= this->NumElements()) {
+        std::cout << "Invalid element index." << std::endl;
+        DebugStop();
+    }
+    return Elements[elindex];
 }
 
 void GeoMesh::BuildConnectivity() {
