@@ -12,7 +12,7 @@ int TopologyTriangle::NSideNodes(int side) {
         DebugStop();
     }
 
-    int nsidenodes[7] = {1, 1, 1, 2, 2, 2, 4};
+    int nsidenodes[7] = {1, 1, 1, 2, 2, 2, 3};
     return nsidenodes[side];
 }
 

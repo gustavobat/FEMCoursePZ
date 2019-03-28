@@ -8,30 +8,39 @@
 #include "tpanic.h"
 
 GeoElementSide::GeoElementSide() {
-    DebugStop();
+
 }
 
 GeoElementSide::GeoElementSide(const GeoElementSide &copy) {
-    DebugStop();
+    fElement = copy.fElement;
+    fSide = copy.fSide;
 }
 
 GeoElementSide &GeoElementSide::operator=(const GeoElementSide &copy) {
-    DebugStop();
+    fElement = copy.fElement;
+    fSide = copy.fSide;
+    return *this;
 }
 
 GeoElementSide GeoElementSide::Neighbour() const {
-    DebugStop();
+    return fElement ? fElement->Neighbour(fSide) : GeoElementSide();
 }
 
 void GeoElementSide::SetNeighbour(const GeoElementSide &neighbour) {
-    DebugStop();
+    fElement->SetNeighbour(fSide,neighbour);
 }
 
 bool GeoElementSide::IsNeighbour(const GeoElementSide &candidate) {
-    DebugStop();
+    if (*this == candidate) return true;
+    GeoElementSide neigh = Neighbour();
+    while((neigh == *this) == false) {
+        if(neigh == candidate) return true;
+        neigh = neigh.Neighbour();
+    }
+    return false;
 }
 
-void GeoElementSide::IsertConnectivity(GeoElementSide &candidate) {
+void GeoElementSide::InsertConnectivity(GeoElementSide &candidate) {
     DebugStop();
 }
 
