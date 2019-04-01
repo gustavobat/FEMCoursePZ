@@ -16,7 +16,6 @@
 class GeoMesh
 {
     
-    
     // Vector of nodes
     std::vector<GeoNode> Nodes;
     

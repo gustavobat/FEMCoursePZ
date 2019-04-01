@@ -60,7 +60,7 @@ public:
     
     bool DataConsistency(GeoElementSide &candidate);
     
-    int Exists() const {return (fElement != 0 && fSide > -1);}
+    int Exists() const {return (fElement != nullptr && fSide > -1);}
     
     // Fill in the data structure for the neighbouring information
     void SetNeighbour(const GeoElementSide &neighbour);
