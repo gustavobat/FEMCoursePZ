@@ -100,7 +100,7 @@ public:
     // Compute gradient of x mapping from local parametric coordinates
     virtual void GradX(const VecDouble &xi, VecDouble &x, Matrix &gradx);
     
-    /** @brief Compute a QR facotrization of the gradient of the mapping function, Q = Jacobian and R = axes  */
+    /** @brief Compute a QR factorization of the gradient of the mapping function, Q = Jacobian and R = axes  */
     virtual void Jacobian(const Matrix &gradx, Matrix &jac,Matrix &axes, double &detjac, Matrix &jacinv);
     
     virtual int SideIsUndefined(int side);
