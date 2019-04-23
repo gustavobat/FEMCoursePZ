@@ -58,6 +58,8 @@ void GeoMesh::SetElement(int elindex, GeoElement *gel) {
         DebugStop();
     }
     Elements[elindex] = gel;
+    if (gel->GetIndex() < 0) DebugStop();
+    gel->SetMesh(this);
 }
 
 GeoElement *GeoMesh::Element(int elindex) {
@@ -74,24 +76,30 @@ void GeoMesh::BuildConnectivity() {
     int nnodes = this->NumNodes();
 
     std::vector<int> sideNum(nnodes, -1);
+
     std::vector<GeoElement*> neighNode(nnodes, nullptr);
 
     for (int elindex = 0; elindex < nelem; elindex++) {
         GeoElement *gel = Elements[elindex];
+        {
+            std::cout << "ElIndex: " << elindex << std::endl;
+        }
 
         int ncorners = gel->NCornerNodes();
 
         for (int icorner = 0; icorner < ncorners; icorner++) {
+            // Gets global node ID using the local node ID as argument
             int node = gel->NodeIndex(icorner);
 
-            // Side not defined yet
+            // The global node has already a 'master' side and GeoElement defined on it
             if (sideNum[node] == -1) {
                 neighNode[node] = gel;
                 sideNum[node] = icorner;
             }
+
             // Side already defined
             else {
-                // Creates a new side
+                // Actually creates a new side
                 GeoElementSide neigh(neighNode[node], sideNum[node]);
                 GeoElementSide gelside(gel, icorner);
                 GeoElementSide neighbour = gelside.Neighbour();
@@ -99,12 +107,15 @@ void GeoMesh::BuildConnectivity() {
                 if (neighbour.Element() == nullptr) {
                     DebugStop();
                 }
+
                 if (!gelside.IsNeighbour(neigh)) {
                     gelside.InsertConnectivity(neigh);
                 }
             }
         }
+        gel->Print(std::cout);
     }
+
 
     for (int elindex = 0; elindex < nelem; elindex++) {
         GeoElement *gel = Elements[elindex];
@@ -130,7 +141,6 @@ void GeoMesh::Print(std::ostream &out) {
 
     out << "\n\tNode Information" << std::endl;
     for (int i = 0; i < this->NumNodes(); i++) {
-        out << "Node index: " << i << "\t\t";
         this->Node(i).Print(out);
     }
 

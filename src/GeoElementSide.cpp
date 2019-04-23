@@ -135,6 +135,7 @@ void GeoElementSide::ComputeNeighbours(std::vector<GeoElementSide> &compneigh) {
     }
     int el, nel = result.size();
     GeoMesh *geoMesh = fElement->GetMesh();
+    geoMesh->Print(std::cout);
     for (el = 0; el < nel; el++) {
         GeoElement *gelResult = geoMesh->Element(result[el]);
         int whichSd = gelResult->WhichSide(nodeIndexes);

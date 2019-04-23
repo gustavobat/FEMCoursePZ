@@ -18,6 +18,9 @@ template<class TGeom>
 GeoElementTemplate<TGeom>::GeoElementTemplate(const VecInt &nodeindices, int materialid, GeoMesh *gmesh, int index) {
     gmesh->SetNumElements(index + 1);
     Geom.SetNodes(nodeindices);
+    this->SetIndex(index);
+    this->MaterialId = materialid;
+
     for (int side = 0; side < TGeom::nSides; side++) {
         Geom.SetNeighbour(side, GeoElementSide(this, side));
     }

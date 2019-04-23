@@ -58,8 +58,9 @@ void IntRuleQuad::gaulegQuad(const double x1, const double x2, VecDouble &co, Ve
 
     int nPoints = co.size();
 
-    VecDouble cox(nPoints);
-    VecDouble coy(nPoints);
+    Matrix cox(3, nPoints);
+    Matrix coy(3, nPoints);
+    //VecDouble coy(nPoints);
     VecDouble wx(nPoints);
     VecDouble wy(nPoints);
 
@@ -71,8 +72,8 @@ void IntRuleQuad::gaulegQuad(const double x1, const double x2, VecDouble &co, Ve
 
     for (int i = 0; i < nPoints; i++) {
         for (int j = 0; j < nPoints; j++) {
-            co[j + i * nPoints] = cox[j];
-            co[j + i * nPoints + nPoints * nPoints] = coy[i];
+            co[j + i * nPoints] = cox(j, 0);
+            co[j + i * nPoints + nPoints * nPoints] = coy(i, 0);
             w[nPoints * i + j] = wx[i] * wy[j];
         }
     }

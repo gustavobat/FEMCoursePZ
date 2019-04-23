@@ -17,7 +17,7 @@ GeoElement::GeoElement() {
     MaterialId = -999;
     GMesh = nullptr;
     Reference = nullptr;
-    Index = -1;
+    Index = -6;
 }
 
 GeoElement::GeoElement(int materialid, GeoMesh *mesh, int index) {
