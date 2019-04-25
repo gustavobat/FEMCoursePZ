@@ -40,7 +40,7 @@ GeoMesh *QuadGeoMesh(int nnodes_x, int nnodes_y, double l) {
     gmesh->SetDimension(2);
     gmesh->SetNumNodes(nnodes);
 
-    //Cria os nos da malha
+    // Cria os nos da malha
     VecDouble coord(3, 0.);
     int64_t nodeid;
     for (int i = 0; i < nnodes_y; i++) {
@@ -52,7 +52,7 @@ GeoMesh *QuadGeoMesh(int nnodes_x, int nnodes_y, double l) {
         }
     }
 
-    //Cria os elementos
+    // Cria os elementos
     VecInt TopolQuad(4, 0);
     for (int i = 0; i < (nnodes_x - 1); i++) {
         for (int j = 0; j < (nnodes_y - 1); j++) {
@@ -86,7 +86,7 @@ GeoMesh *QuadGeoMesh(int nnodes_x, int nnodes_y, double l) {
             TopolQuad[i] = gmesh->Element(iel)->NodeIndex(i);
         }
 
-        //Coordenadas x e y de cada corner do elemento
+        // Coordenadas x e y de cada corner do elemento
         for (int i = 0; i < 2; i++) {
             for (int j = 0; j < ncorners; j++) {
                 co(i, j) = gmesh->Node(TopolQuad[j]).Co()[i];
