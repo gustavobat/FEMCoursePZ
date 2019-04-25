@@ -26,8 +26,8 @@ class L2Projection : public MathStatement
     
     // Second value of boundary condition
     Matrix BCVal2;
-    
-    // Force funtion related to L2 projection math statement
+
+    // Force function related to L2 projection math statement
     std::function<void(const VecDouble &co, VecDouble &result)> forceFunction;
     
     std::function<void(const VecDouble &loc, VecDouble &result, Matrix &deriv)> SolutionExact;

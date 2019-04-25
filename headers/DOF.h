@@ -8,6 +8,7 @@
 #ifndef DOF_h
 #define DOF_h
 #include "DataTypes.h"
+
 class CompMesh;
 
 class DOF
@@ -52,8 +53,8 @@ public:
     
     // Return the number of state variables associated with each shape function
     int GetNState() const;
-    
-    // Return maximum the order of the polinoms associated with DOF
+
+    // Return maximum the order of the polynomials associated with DOF
     int GetOrder() const;
     
     // Method to print information of DOF elements

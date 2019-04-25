@@ -68,7 +68,7 @@ GeoMesh *QuadGeoMesh(int nnodes_x, int nnodes_y, double l) {
         }
     }
 
-    VecInt topolLine(2, 0.);
+    VecInt topolLine(2, 0);
     Matrix co(2, 4, 0);
     int64_t id = nelem;
 

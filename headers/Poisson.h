@@ -10,7 +10,7 @@
 
 #include "MathStatement.h"
 #include "DataTypes.h"
-#include  "IntPointData.h"
+#include "IntPointData.h"
 #include <functional>
 
 class Poisson : public MathStatement
@@ -98,7 +98,8 @@ public:
     virtual void ContributeError(IntPointData &integrationpointdata, VecDouble &u_exact, Matrix &du_exact, VecDouble &errors) const;
     
     // Prepare and print post processing data
-    virtual void PostProcessSolution(const IntPointData &integrationpointdata, const int var, VecDouble &sol) const;
+    virtual void
+    PostProcessSolution(const IntPointData &integrationpointdata, const int varId, VecDouble &result) const;
 
     virtual double Inner(Matrix &S,Matrix &T) const;
     
