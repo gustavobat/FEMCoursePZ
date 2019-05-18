@@ -13,28 +13,31 @@
 #include "IntPointData.h"
 #include "PostProcess.h"
 #include <functional>
+#include "CompMesh.h"
+#include "DOF.h"
+#include "GeoElement.h"
+#include "MathStatement.h"
 
 class CompMesh;
 class GeoElement;
 class MathStatement;
 
-class CompElement
-{
+class CompElement {
     
     // Computational mesh to which the element belongs
-    CompMesh *compmesh = 0;
+    CompMesh *compmesh = nullptr;
     
     // Element index into mesh element vector
     int64_t index = -1;
     
     // Geometrical element associated
-    GeoElement *geoel = 0;
+    GeoElement *geoel = nullptr;
     
     // Integration rule object
-    IntRule *intrule = 0;
+    IntRule *intrule = nullptr;
 
     // Material object associated
-    MathStatement *mat = 0;
+    MathStatement *mat = nullptr;
     
 public:
     
@@ -48,7 +51,7 @@ public:
     CompElement(const CompElement &copy);
     
     // Operator of copy
-    CompElement &operator=(const CompElement &);
+    CompElement &operator=(const CompElement &copy);
     
     // Destructor of CompElement
     ~CompElement();
@@ -69,8 +72,7 @@ public:
     void SetIntRule(IntRule *intrule);
     
     // Return element index
-    int64_t GetIndex() const
-    {
+    int64_t GetIndex() const {
         return index;
     }
     

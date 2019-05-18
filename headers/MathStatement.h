@@ -12,8 +12,7 @@
 #include "IntPointData.h"
 #include "PostProcess.h"
 
-class MathStatement
-{
+class MathStatement {
     
     int MathDim;
     
@@ -42,7 +41,7 @@ public:
     virtual MathStatement *Clone() const = 0;
     
     // Return the number of state variables
-    virtual int NState() const =0;
+    virtual int NState() const = 0;
     
     // Return the number of errors
     virtual int NEvalErrors() const = 0;
@@ -70,7 +69,7 @@ public:
     };
     
     // Prepare and print post processing data
-    virtual void PostProcessSolution(const IntPointData &integrationpointdata, const int var, VecDouble &sol) const = 0;
+    virtual void PostProcessSolution(const IntPointData &integrationpointdata, int var, VecDouble &sol) const = 0;
     
     
     virtual void Axes2XYZ(const Matrix &dudaxes, Matrix &dudx, const Matrix &axesv, bool colMajor = true) const;

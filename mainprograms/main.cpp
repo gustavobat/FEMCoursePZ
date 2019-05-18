@@ -147,7 +147,8 @@ void QuadrilateralMeshTest(int pOrder) {
     }
 
     for (int i = 1; i < 2; i++) {
-        int ndiv = pow(2, i);
+        int ndiv;
+        ndiv = pow(2, i);
         double l = 1;
 
         fout << "-------------------------------------------" << std::endl;

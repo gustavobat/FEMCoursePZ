@@ -13,8 +13,7 @@
 #include "IntPointData.h"
 #include <functional>
 
-class Poisson : public MathStatement
-{
+class Poisson : public MathStatement {
 
     // Permeability matrix
     Matrix permeability;

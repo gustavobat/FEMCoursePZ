@@ -25,6 +25,7 @@ MathStatement::~MathStatement() {
 }
 
 void MathStatement::Axes2XYZ(const Matrix &dudaxes, Matrix &dudx, const Matrix &axesv, bool colMajor) const {
+
     Matrix axes(axesv.Rows(), axesv.Cols());
     for (int r = 0; r < axes.Rows(); r++) {
         for (int c = 0; c < axes.Cols(); c++) {
@@ -49,7 +50,6 @@ void MathStatement::Axes2XYZ(const Matrix &dudaxes, Matrix &dudx, const Matrix &
 }
 
 void MathStatement::Print(std::ostream &out) {
-    out << "Material: " << this->GetMatID() << std::endl;
+    out << "Material ID: " << this->GetMatID() << std::endl;
     out << "Big number: " << gBigNumber << std::endl << std::endl;
-
 }

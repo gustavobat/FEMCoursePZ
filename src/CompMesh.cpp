@@ -71,7 +71,7 @@ std::vector<CompElement *> CompMesh::GetElementVec() const {
 }
 
 std::vector<DOF> CompMesh::GetDOFVec() const {
-    DebugStop();
+    return dofs;
 }
 
 std::vector<MathStatement *> CompMesh::GetMathVec() const {

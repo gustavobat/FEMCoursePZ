@@ -11,13 +11,13 @@
 #include "DataTypes.h"
 #include "PostProcess.h"
 #include <iostream>
+#include "CompElement.h"
 
 class CompMesh;
 
 // class geared towards the assembly of the global system of equations
-class Assemble
-{
-    CompMesh *cmesh = 0;
+class Assemble {
+    CompMesh *cmesh = nullptr;
     
 public:
     

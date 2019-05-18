@@ -12,7 +12,8 @@
 #include "tpanic.h"
 
 template<class Shape>
-CompElementTemplate<Shape>::CompElementTemplate() {
+CompElementTemplate<Shape>::CompElementTemplate() : dofindexes(0), {
+
     DebugStop();
 }
 
@@ -89,8 +90,6 @@ template<class Shape>
 void CompElementTemplate<Shape>::Print(std::ostream &out) {
     DebugStop();
 }
-
-
 
 template class CompElementTemplate<Shape1d>;
 template class CompElementTemplate<ShapeQuad>;

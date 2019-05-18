@@ -21,9 +21,9 @@ class GeoMesh;
 
 class DOF;
 
-class CompMesh
-{
-    /// pointer to the geometric mesh
+class CompMesh {
+
+    // pointer to the geometric mesh
     GeoMesh *geomesh;
     
     // Vector with computational elements objects
@@ -82,14 +82,12 @@ public:
     void SetMathStatement(int index, MathStatement *math);
     
     // Set Default Order
-    void SetDefaultOrder( int order )
-    {
+    void SetDefaultOrder(int order) {
         DefaultOrder = order;
     }
 
     // Get Default Order
-    int GetDefaultOrder()
-    {
+    int GetDefaultOrder() {
         return DefaultOrder;
     }
     

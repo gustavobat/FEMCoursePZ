@@ -24,16 +24,14 @@ protected:
 public:
     
     PostProcess(){
-        Reference=0;
+        Reference =nullptr;
     }
 
     PostProcess(const PostProcess &copy){
         Reference=copy.Reference;
     }
     
-    ~PostProcess(){
-        
-    }
+    ~PostProcess()= default;
     
     
     PostProcess &operator=(const PostProcess &cp){
