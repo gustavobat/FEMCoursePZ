@@ -265,17 +265,17 @@ int GeoElementTemplate<TGeom>::WhichSide(VecInt &SideNodeIds) {
                 for (k = 1; k < 4; k++) {
                     if (snx[0] == sni[k] && snx[2] == sni[k % 3 + 1] && snx[3] == sni[(k + 1) % 3 + 1]) return side;
                     if (snx[0] == sni[k] && snx[2] == sni[(k + 1) % 3 + 1] && snx[3] == sni[k % 3 + 1]) return side;
-                }// /* 0123 0231 0312 , 0132 0213 0321 */                               /* 1023 1230 1302 , 1032 1203 1320 */
+                }
             } else if (snx[2] == sni[0]) {
                 for (k = 0; k < 4; k++) {
                     if (snx[0] == sni[k] && snx[1] == sni[k % 3 + 1] && snx[3] == sni[(k + 1) % 3 + 1]) return side;
                     if (snx[0] == sni[k] && snx[1] == sni[(k + 1) % 3 + 1] && snx[3] == sni[k % 3 + 1]) return side;
-                }// /* 0123 0231 0312 , 0132 0213 0321 */                               /* 2013 2130 2301 , 2031 2103 2310 */
+                }
             } else if (snx[3] == sni[0]) {
                 for (k = 0; k < 4; k++) {
                     if (snx[0] == sni[k] && snx[1] == sni[k % 3 + 1] && snx[2] == sni[(k + 1) % 3 + 1]) return side;
                     if (snx[0] == sni[k] && snx[1] == sni[(k + 1) % 3 + 1] && snx[2] == sni[k % 3 + 1]) return side;
-                }// /* 0123 0231 0312 , 0132 0213 0321 */                               / * 3012 3120 3201 , 3021 3102 3210 * /
+                }
             }
         }
         else if (cap < 1 || cap > 4) {

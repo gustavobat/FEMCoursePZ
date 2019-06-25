@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 #include <DOF.h>
 #include "Assemble.h"
 #include "tpanic.h"
@@ -60,10 +61,46 @@ void Assemble::Compute(Matrix &globmat, Matrix &rhs) {
 
         Matrix ek(nshape * nstate, nshape * nstate);
         Matrix ef(nshape * nstate, 1);
+        ek.Zero();
+        ef.Zero();
 
         cel->CalcStiff(ek, ef);
 
-        
+        int nsides = cel->GetGeoElement()->NSides();
 
+        VecInt DOFfirsteq(0);
+
+        for (int64_t idofs = 0; idofs < nsides; idofs++) {
+            int64_t dofindex = cel->GetDOFIndex(idofs);
+            DOF dof = cmesh->GetDOF(dofindex);
+            if (dof.GetNShape() > 0) {
+                DOFfirsteq.push_back(dof.GetFirstEquation());
+            }
+        }
+
+        for (int64_t idofs = 0; idofs < DOFfirsteq.size(); idofs++) {
+            int64_t dofindexi = cel->GetDOFIndex(idofs);
+            int64_t fei = DOFfirsteq[idofs];
+            DOF dofi = cmesh->GetDOF(dofindexi);
+
+            for (int64_t jdofs = 0; jdofs < DOFfirsteq.size(); jdofs++) {
+                int64_t fej = DOFfirsteq[jdofs];
+                int64_t dofindexj = cel->GetDOFIndex(jdofs);
+                DOF dofj = cmesh->GetDOF(dofindexj);
+
+                for (int64_t idim = 0; idim < dofi.GetNState() * dofi.GetNShape(); idim++) {
+                    for (int64_t jdim = 0; jdim < dofj.GetNState() * dofj.GetNShape(); jdim++) {
+                        globmat(fei + idim, fej + jdim) += ek(idofs * dofj.GetNState() + idim,
+                                                              jdofs * dofj.GetNState() + jdim);
+                    }
+                }
+            }
+
+            for (int64_t idim = 0; idim < dofi.GetNState() * dofi.GetNShape(); idim++) {
+                rhs(fei + idim, 0) += ef(idofs * dofi.GetNState() + idim, 0);
+            }
+
+        }
     }
+    std::cout << "Assembly done!" << std::endl;
 }
