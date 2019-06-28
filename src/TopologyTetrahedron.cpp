@@ -44,5 +44,5 @@ int TopologyTetrahedron::SideNodeIndex(int side, int node) {
 }
 
 ElementType TopologyTetrahedron::Type() {
-    return ETetraedro;
+    return ETetrahedron;
 }

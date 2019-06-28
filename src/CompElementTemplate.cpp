@@ -12,8 +12,7 @@
 #include "tpanic.h"
 
 template<class Shape>
-CompElementTemplate<Shape>::CompElementTemplate() : dofindexes(0), {
-
+CompElementTemplate<Shape>::CompElementTemplate() : dofindexes(0) {
     DebugStop();
 }
 

@@ -25,7 +25,7 @@ static int GetVTK_ElType(ElementType ElType)
             elType = 1;
             break;
         }
-        case(EOned):
+        case(ELine):
         {
             elType = 21;
             break;
@@ -42,7 +42,7 @@ static int GetVTK_ElType(ElementType ElType)
             elType = 23;
             break;
         }
-        case (ETetraedro):
+        case (ETetrahedron):
         {
             // quadratic tetrahedra
             elType = 24;
@@ -117,7 +117,7 @@ static TMatrix NodeCoordinates(ElementType eltype)
     
 
     switch (eltype) {
-        case EOned:
+        case ELine:
             result.Resize(3, 1);
             result(0,0) = -1.;
             result(1,0) = 1.;
@@ -137,7 +137,7 @@ static TMatrix NodeCoordinates(ElementType eltype)
                 result(i,1) = triangle[i][1];
             }
             break;
-        case ETetraedro:
+        case ETetrahedron:
             result.Resize(10, 3);
             for (int i=0; i<10; i++) {
                 result(i,0) = tetra[i][0];
@@ -175,7 +175,7 @@ void VTKGeoMesh::PrintGMeshVTK(GeoMesh * gmesh, const std::string &filename)
     for(int64_t el = 0; el < nelements; el++)
     {
         gel = gmesh->Element(el);
-        if(!gel )//|| (gel->Type() == EOned && !gel->IsLinearMapping()))//Exclude Arc3D and Ellipse3D
+        if(!gel )//|| (gel->Type() == ELine && !gel->IsLinearMapping()))//Exclude Arc3D and Ellipse3D
         {
             continue;
         }

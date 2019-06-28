@@ -161,4 +161,3 @@ void QuadrilateralMeshTest(int pOrder) {
         testevtk->PrintGMeshVTK(gmesh, "teste.vtk");
     }
 }
-

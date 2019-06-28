@@ -8,7 +8,6 @@
 #ifndef Analysis_h
 #define Analysis_h
 
-
 #include "DataTypes.h"
 #include <string>
 #include <iostream>

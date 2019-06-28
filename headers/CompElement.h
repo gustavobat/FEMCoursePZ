@@ -23,86 +23,86 @@ class GeoElement;
 class MathStatement;
 
 class CompElement {
-    
+
     // Computational mesh to which the element belongs
     CompMesh *compmesh = nullptr;
-    
+
     // Element index into mesh element vector
     int64_t index = -1;
-    
+
     // Geometrical element associated
     GeoElement *geoel = nullptr;
-    
+
     // Integration rule object
     IntRule *intrule = nullptr;
 
     // Material object associated
     MathStatement *mat = nullptr;
-    
+
 public:
-    
+
     // Default constructor of CompElement
     CompElement();
-    
+
     // Constructor of CompElement
     CompElement(int64_t ind, CompMesh *cmesh, GeoElement *geo);
-    
+
     // Copy constructor of CompElement
     CompElement(const CompElement &copy);
-    
+
     // Operator of copy
     CompElement &operator=(const CompElement &copy);
-    
+
     // Destructor of CompElement
     ~CompElement();
-    
+
     // Method for creating a copy of the element
-    virtual CompElement *Clone() const;
-    
+    virtual CompElement *Clone() const = 0;
+
     // Return the material object associated with the element
     MathStatement *GetStatement() const;
-    
+
     // Set the material object associated with the element
     void SetStatement( MathStatement *statement);
-    
+
     // Return integration rule established
     IntRule *GetIntRule() const;
-    
+
     // Set integration rule established
     void SetIntRule(IntRule *intrule);
-    
+
     // Return element index
     int64_t GetIndex() const {
         return index;
     }
-    
+
     // Set element index
     void SetIndex(int64_t ind);
-    
+
     // Return the geometric element associated
     GeoElement *GetGeoElement() const;
-    
+
     // Set the geometric element associated
     void SetGeoElement(GeoElement *element);
-    
+
     // Return a pointer to the element computational mesh
     CompMesh *GetCompMesh() const;
-    
+
     // Set a pointer to the element computational mesh
     void SetCompMesh(CompMesh *mesh);
-    
+
     // Initialize integration points data object
     void InitializeIntPointData(IntPointData &data) const;
-    
+
     // Compute and fill integration points data object
     void ComputeRequiredData(IntPointData &data, VecDouble &intpoint) const;
-    
+
     // Convert a shapefunction derivative in xi-eta to a function derivative in axes
     void Convert2Axes(const Matrix &dphi, const Matrix &jacinv, Matrix &dphidx) const;
-    
+
     // Compute the element stifness matrix and force vector
     virtual void CalcStiff(Matrix &ek, Matrix &ef) const;
-    
+
     // Compute error and exact solution
     virtual void EvaluateError(std::function<void(const VecDouble &loc,VecDouble &val,Matrix &deriv)> fp,
                                VecDouble &errors) const;
